@@ -36,52 +36,52 @@ func walk(tree gotree.Tree, expr parser.Expr) {
 	//str += field
 	switch e := expr.(type) {
 	case *parser.AggregateExpr:
-		//todo tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
-		tree.Add(fmt.Sprintf("Op:%s\n", itemTypes[e.Op]))
-		tree.Add(fmt.Sprintf("Grouping:%v\n", e.Grouping))
-		tree.Add(fmt.Sprintf("Without:%v\n", e.Without))
-		tree.Add(fmt.Sprintf("PosRange:%v\n", e.PosRange))
+		//todo tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Op:%s", itemTypes[e.Op]))
+		tree.Add(fmt.Sprintf("Grouping:%v", e.Grouping))
+		tree.Add(fmt.Sprintf("Without:%v", e.Without))
+		tree.Add(fmt.Sprintf("PosRange:%v", e.PosRange))
 
-		exprTree := tree.Add(fmt.Sprintln("Expr:"))
+		exprTree := tree.Add(fmt.Sprintf("Expr:"))
 		walk(exprTree, e.Expr)
-		paramTree := tree.Add(fmt.Sprintln("Param:"))
+		paramTree := tree.Add(fmt.Sprintf("Param:"))
 		walk(paramTree, e.Param)
 	case *parser.BinaryExpr:
-		//todo tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
-		tree.Add(fmt.Sprintf("Op:%s\n", itemTypes[e.Op]))
-		tree.Add(fmt.Sprintf("ReturnBool:%v\n", e.ReturnBool))
-		tree.Add(fmt.Sprintf("VectorMatching:%v\n", e.VectorMatching))
+		//todo tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Op:%s", itemTypes[e.Op]))
+		tree.Add(fmt.Sprintf("ReturnBool:%v", e.ReturnBool))
+		tree.Add(fmt.Sprintf("VectorMatching:%v", e.VectorMatching))
 
-		LHSTree := tree.Add(fmt.Sprintln("LHS:"))
+		LHSTree := tree.Add(fmt.Sprintf("LHS:"))
 		walk(LHSTree, e.LHS)
-		RHSTree := tree.Add(fmt.Sprintln("RHS:"))
+		RHSTree := tree.Add(fmt.Sprintf("RHS:"))
 		walk(RHSTree, e.RHS)
 
 	case *parser.ParenExpr:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		//tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
-		exprTree := tree.Add(fmt.Sprintln("Expr:"))
+		exprTree := tree.Add(fmt.Sprintf("Expr:"))
 		walk(exprTree, e.Expr)
 
 	case *parser.Call:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
-		//todo tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		tree.Add(fmt.Sprintf("Func:%v\n", *e.Func))
-		tree.Add(fmt.Sprintf("PosRange:%v\n", e.PosRange))
-		argsTree := tree.Add(fmt.Sprintln("Args:"))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
+		//todo tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("Func:%v", *e.Func))
+		tree.Add(fmt.Sprintf("PosRange:%v", e.PosRange))
+		argsTree := tree.Add(fmt.Sprintf("Args:"))
 		for i, expr := range e.Args {
 			argTree := argsTree.Add(fmt.Sprintf("arg[%d]", i))
 			walk(argTree, expr)
 		}
 	case *parser.SubqueryExpr:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		//todo tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
+		//todo tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
 		tree.Add(fmt.Sprintf("Range:%v", e.Range))
 		tree.Add(fmt.Sprintf("OriginalOffset:%v", e.OriginalOffset))
 		tree.Add(fmt.Sprintf("Offset:%v", e.Offset))
@@ -90,63 +90,63 @@ func walk(tree gotree.Tree, expr parser.Expr) {
 		tree.Add(fmt.Sprintf("Step:%v", e.Step))
 		tree.Add(fmt.Sprintf("EndPos:%v", e.EndPos))
 
-		exprTree := tree.Add(fmt.Sprintln("Expr:"))
+		exprTree := tree.Add(fmt.Sprintf("Expr:"))
 		walk(exprTree, e.Expr)
 
 	case *parser.UnaryExpr:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		//fmt.Printf("%s startpos:%v\n", str, e.StartPos)
-		//fmt.Printf("%s Op:%s\n", str, itemTypes[e.Op])
-		exprTree := tree.Add(fmt.Sprintln("Expr:"))
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		//fmt.Printf("%s startpos:%v", str, e.StartPos)
+		//fmt.Printf("%s Op:%s", str, itemTypes[e.Op])
+		exprTree := tree.Add(fmt.Sprintf("Expr:"))
 		walk(exprTree, e.Expr)
 
 	case *parser.MatrixSelector:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		//fmt.Printf("%s endpos:%v\n", str, e.EndPos)
-		//fmt.Printf("%s range:%v\n", str, e.Range)
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		//fmt.Printf("%s endpos:%v", str, e.EndPos)
+		//fmt.Printf("%s range:%v", str, e.Range)
 		vs := tree.Add("VectorSelector:")
 		walk(vs, e.VectorSelector)
 
 	case *parser.StepInvariantExpr:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
 		exprTree := tree.Add("Expr")
 		walk(exprTree, e.Expr)
 
 	case *parser.NumberLiteral:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
-		//fmt.Printf("%s val:%v\n", str, e.Val)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
+		//fmt.Printf("%s val:%v", str, e.Val)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 	case *parser.StringLiteral:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
 
-		//fmt.Printf("%s val:%v\n", str, e.Val)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s val:%v", str, e.Val)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 	case *parser.VectorSelector:
-		tree.Add(fmt.Sprintf("Type:%s\n", reflect.TypeOf(e).String()))
+		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
-		tree.Add(fmt.Sprintf("[%s]:%s\n", reflect.TypeOf(e).String(), e.String()))
+		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
 
-		//fmt.Printf("%s name:%v\n", str, e.Name)
-		//fmt.Printf("%s duration:%v\n", str, e.OriginalOffset)
-		//fmt.Printf("%s offset:%v\n", str, e.Offset)
-		//fmt.Printf("%s timestamp:%v\n", str, e.Timestamp)
-		//fmt.Printf("%s StartOrEnd:%v\n", str, itemTypes[e.StartOrEnd])
-		//fmt.Printf("%s LabelMatchers:%v\n", str, e.LabelMatchers)
-		//fmt.Printf("%s UnexpandedSeriesSet:%v\n", str, e.UnexpandedSeriesSet)
-		//fmt.Printf("%s Series:%v\n", str, e.Series)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s name:%v", str, e.Name)
+		//fmt.Printf("%s duration:%v", str, e.OriginalOffset)
+		//fmt.Printf("%s offset:%v", str, e.Offset)
+		//fmt.Printf("%s timestamp:%v", str, e.Timestamp)
+		//fmt.Printf("%s StartOrEnd:%v", str, itemTypes[e.StartOrEnd])
+		//fmt.Printf("%s LabelMatchers:%v", str, e.LabelMatchers)
+		//fmt.Printf("%s UnexpandedSeriesSet:%v", str, e.UnexpandedSeriesSet)
+		//fmt.Printf("%s Series:%v", str, e.Series)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 	}
 }
@@ -165,15 +165,15 @@ func log(field string, level int, expr parser.Expr) {
 		//Grouping []string // The labels by which to group the Vector.
 		//Without  bool     // Whether to drop the given labels rather than keep them.
 		//PosRange PositionRange
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s Op:%s\n", str, itemTypes[e.Op])
-		//fmt.Printf("%s Grouping:%v\n", str, e.Grouping)
-		//fmt.Printf("%s without:%v\n", str, e.Without)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
-		fmt.Printf("%s Expr:\n", str)
+		//fmt.Printf("%s Op:%s", str, itemTypes[e.Op])
+		//fmt.Printf("%s Grouping:%v", str, e.Grouping)
+		//fmt.Printf("%s without:%v", str, e.Without)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
+		fmt.Printf("%s Expr:", str)
 		log("Expr", level+1, e.Expr)
-		fmt.Printf("%s Param:\n", str)
+		fmt.Printf("%s Param:", str)
 		log("Param", level+1, e.Param)
 	case *parser.BinaryExpr:
 		//Op       ItemType // The operation of the expression.
@@ -185,47 +185,47 @@ func log(field string, level int, expr parser.Expr) {
 		//
 		//// If a comparison operator, return 0/1 rather than filtering.
 		//ReturnBool bool
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s Op:%s\n", str, itemTypes[e.Op])
-		//fmt.Printf("%s returnBool:%v\n", str, e.ReturnBool)
-		//fmt.Printf("%s vectorMatching:%v\n", str, e.VectorMatching)
-		fmt.Printf("%s LHS:\n", str)
+		//fmt.Printf("%s Op:%s", str, itemTypes[e.Op])
+		//fmt.Printf("%s returnBool:%v", str, e.ReturnBool)
+		//fmt.Printf("%s vectorMatching:%v", str, e.VectorMatching)
+		fmt.Printf("%s LHS:", str)
 		log("LHS", level+1, e.LHS)
-		fmt.Printf("%s RHS:\n", str)
+		fmt.Printf("%s RHS:", str)
 		log("RHS", level+1, e.RHS)
 
 	case *parser.ParenExpr:
 		//Expr     Expr
 		//PosRange PositionRange
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
-		fmt.Printf("%s Expr:\n", str)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
+		fmt.Printf("%s Expr:", str)
 		log("Expr", level+1, e.Expr)
 	case *parser.Call:
 		//Func *Function   // The function that was called.
 		//Args Expressions // Arguments used in the call.
 		//PosRange PositionRange
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s func:%v\n", str, *e.Func)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s func:%v", str, *e.Func)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 		for _, expr := range e.Args {
-			fmt.Printf("%s Arg:\n", str)
+			fmt.Printf("%s Arg:", str)
 			log("Arg", level+1, expr)
 		}
 	case *parser.SubqueryExpr:
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s range:%v\n", str, e.Range)
-		//fmt.Printf("%s originalOffset:%v\n", str, e.OriginalOffset)
-		//fmt.Printf("%s offset:%v\n", str, e.Offset)
-		//fmt.Printf("%s Timestamp:%v\n", str, e.Timestamp)
-		//fmt.Printf("%s StartOrEnd:%v\n", str, itemTypes[e.StartOrEnd])
-		//fmt.Printf("%s Step:%v\n", str, e.Step)
-		//fmt.Printf("%s endpos:%v\n", str, e.EndPos)
-		fmt.Printf("%s Expr:\n", str)
+		//fmt.Printf("%s range:%v", str, e.Range)
+		//fmt.Printf("%s originalOffset:%v", str, e.OriginalOffset)
+		//fmt.Printf("%s offset:%v", str, e.Offset)
+		//fmt.Printf("%s Timestamp:%v", str, e.Timestamp)
+		//fmt.Printf("%s StartOrEnd:%v", str, itemTypes[e.StartOrEnd])
+		//fmt.Printf("%s Step:%v", str, e.Step)
+		//fmt.Printf("%s endpos:%v", str, e.EndPos)
+		fmt.Printf("%s Expr:", str)
 		log("Expr", level+1, e.Expr)
 
 		//Expr  Expr
@@ -247,21 +247,21 @@ func log(field string, level int, expr parser.Expr) {
 		//Expr Expr
 		//
 		//StartPos Pos
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s startpos:%v\n", str, e.StartPos)
-		//fmt.Printf("%s Op:%s\n", str, itemTypes[e.Op])
-		fmt.Printf("%s Expr:\n", str)
+		//fmt.Printf("%s startpos:%v", str, e.StartPos)
+		//fmt.Printf("%s Op:%s", str, itemTypes[e.Op])
+		fmt.Printf("%s Expr:", str)
 		log("Expr", level+1, e.Expr)
 
 	case *parser.MatrixSelector:
 		//VectorSelector Expr
 		//Range          time.Duration
 		//EndPos Pos
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s endpos:%v\n", str, e.EndPos)
-		//fmt.Printf("%s range:%v\n", str, e.Range)
+		//fmt.Printf("%s endpos:%v", str, e.EndPos)
+		//fmt.Printf("%s range:%v", str, e.Range)
 		log("VectorSelector", level+1, e.VectorSelector)
 	case *parser.StepInvariantExpr:
 
@@ -269,31 +269,31 @@ func log(field string, level int, expr parser.Expr) {
 	case *parser.NumberLiteral:
 		//Val float64
 		//PosRange PositionRange
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s val:%v\n", str, e.Val)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s val:%v", str, e.Val)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 	case *parser.StringLiteral:
 		//Val      string
 		//PosRange PositionRange
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s val:%v\n", str, e.Val)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s val:%v", str, e.Val)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 	case *parser.VectorSelector:
-		fmt.Printf("%s [%s]:%s\n", str, reflect.TypeOf(e).String(), e.String())
+		fmt.Printf("%s [%s]:%s", str, reflect.TypeOf(e).String(), e.String())
 
-		//fmt.Printf("%s name:%v\n", str, e.Name)
-		//fmt.Printf("%s duration:%v\n", str, e.OriginalOffset)
-		//fmt.Printf("%s offset:%v\n", str, e.Offset)
-		//fmt.Printf("%s timestamp:%v\n", str, e.Timestamp)
-		//fmt.Printf("%s StartOrEnd:%v\n", str, itemTypes[e.StartOrEnd])
-		//fmt.Printf("%s LabelMatchers:%v\n", str, e.LabelMatchers)
-		//fmt.Printf("%s UnexpandedSeriesSet:%v\n", str, e.UnexpandedSeriesSet)
-		//fmt.Printf("%s Series:%v\n", str, e.Series)
-		//fmt.Printf("%s posrange:%v\n", str, e.PosRange)
+		//fmt.Printf("%s name:%v", str, e.Name)
+		//fmt.Printf("%s duration:%v", str, e.OriginalOffset)
+		//fmt.Printf("%s offset:%v", str, e.Offset)
+		//fmt.Printf("%s timestamp:%v", str, e.Timestamp)
+		//fmt.Printf("%s StartOrEnd:%v", str, itemTypes[e.StartOrEnd])
+		//fmt.Printf("%s LabelMatchers:%v", str, e.LabelMatchers)
+		//fmt.Printf("%s UnexpandedSeriesSet:%v", str, e.UnexpandedSeriesSet)
+		//fmt.Printf("%s Series:%v", str, e.Series)
+		//fmt.Printf("%s posrange:%v", str, e.PosRange)
 
 		//Name string
 		//// OriginalOffset is the actual offset that was set in the query.
