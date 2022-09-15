@@ -1,16 +1,7 @@
 # Usage
 
-go run main.go --promql  'avg(sum_over_time((sum_over_time( indexTracker_value{symbol="AMPL_USD_VOLUME"}[10m0s]) * on(domain)avg_over_time(indexTracker_value{symbol="AMPL_USD"}[10m0s]))[86400s:10m0s])/ on(domain)sum_over_time(sum_over_time(indexTracker_value{symbol="AMPL_USD_VOLUME"}[10m0s])[86400s:10m0s]))'
 
-
-
-
-得到Expr的AST树：
-```
-
-```
-
-go run main.go --promql 'histogram_quantile(0.99, sum by(cluster_name, service_name, namespace, pod, function_name, le) (rate(infra_api_latency_h_bucket{cluster_name="openplatform-pro",function_name!="all"}[2m])))'
+> go run main.go --promql 'histogram_quantile(0.99, sum by(cluster_name, service_name, namespace, pod, function_name, le) (rate(infra_api_latency_h_bucket{cluster_name="openplatform-pro",function_name!="all"}[2m])))'
 
 得到Expr的AST树：
 ```
