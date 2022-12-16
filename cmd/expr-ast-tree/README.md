@@ -1,6 +1,6 @@
 # Usage
 
-# sum(core_infra_api_total_request{cluster_name="product-pro",namespace="core-infra",service_name="pro-test-flow-compare-1",function_name!="all"})by(cluster_name,namespace,service_name,pod) and on (pod) kube_pod_container_info{container="pro-test-flow-compare-1",monitor_cluster="product-pro"}
+>  sum(core_infra_api_total_request{cluster_name="product-pro",namespace="core-infra",service_name="pro-test-flow-compare-1",function_name!="all"})by(cluster_name,namespace,service_name,pod) and on (pod) kube_pod_container_info{container="pro-test-flow-compare-1",monitor_cluster="product-pro"}
 
 > go run main.go --promql 'histogram_quantile(0.99, sum by(cluster_name, service_name, namespace, pod, function_name, le) (rate(infra_api_latency_h_bucket{cluster_name="openplatform-pro",function_name!="all"}[2m])))'
 

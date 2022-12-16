@@ -138,7 +138,7 @@ func walk(tree gotree.Tree, expr parser.Expr) {
 		tree.Add(fmt.Sprintf("Type:%s", reflect.TypeOf(e).String()))
 
 		tree.Add(fmt.Sprintf("[%s]:%s", reflect.TypeOf(e).String(), e.String()))
-		tree.Add(fmt.Sprintf("[timestamp]:%d", *e.Timestamp))
+		tree.Add(fmt.Sprintf("[timestamp]:%v", e.Timestamp))
 		//fmt.Printf("%s name:%v", str, e.Name)
 		//fmt.Printf("%s duration:%v", str, e.OriginalOffset)
 		//fmt.Printf("%s offset:%v", str, e.Offset)
